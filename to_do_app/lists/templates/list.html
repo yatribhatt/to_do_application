@@ -1,0 +1,108 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'mystyles.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>{{title}}</title>
+</head>
+
+
+<body  class="container-fluid" style="font-family:'Trebuchet MS'">
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-info">
+        <strong>{{message}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <p class="row">
+        <h2 style="text-align: center;"><i>__TO DO LIST__</i></h2>
+        <hr />
+    </p>
+
+    <div class="row">
+
+        <div class="col-md-8">
+
+        {% for item in list %}
+        <div class="card">
+            <h4><b>{{item.title}}</b></h4>
+            <hr/>
+            {{item.date}}
+            <hr/>
+            > {{item.details}}
+            <br />
+            <br />
+
+            <a href="{% url 'edit' pk=item.pk %}">Edit</a>
+
+            <br/>
+
+            <form action="/del/{{item.id}}" method="POST" style="padding-right: 4%; padding-bottom: 3%;">        
+                {% csrf_token %}
+                <button value="remove" type="submit"  class="btn btn-primary" style="float: right;">remove</button>
+            </form>
+
+            
+            <div class="ui segment">
+                <!-- <p class="ui big header">{{ item.id }} | {{ item.title }}</p> -->
+
+                {% if item.complete == False %}
+                <span style='font-size:20px;'>&#8987;</span>
+                <span class="ui gray label">Pending :</span>
+                {% else %}
+                <span style='font-size:20px;'>&#10004;</span>
+                <span class="ui green label">Done :</span>
+                {% endif %}
+
+                <a class="ui blue button" href="/update/{{ item.id }}">Update</a>
+
+            </div>
+
+        </div>
+        {% endfor%}
+        </div>
+
+        
+        <div class="col-md-1"> </div>
+
+        <div class="col-md-3" >
+            <div  class="submit_form">
+                <form  method="POST">
+                    {% csrf_token %}
+                    {{forms}}
+
+                    <button value="Submit" type="submit"  style="background-color: lightblue;" >
+                        <span></span> Submit
+                    </button>
+
+                    <!-- <p><input type="submit" class="btn btn-default" value="submit"/></p> -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+
+
+
+
+
+<!-- 
+
+{% for item in item_list %}
+    <p>{{ item.title }} - <a href="{% url 'item-update' item.id %}">Edit</a></p>
+{% endfor %} -->

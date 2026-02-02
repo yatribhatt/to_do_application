@@ -1,0 +1,39 @@
+
+created virtual environment:
+-> C:\Users\HP\Desktop\WSC\proj_2>python -m venv mytodo
+-> mytodo\scripts\activate
+-> pip install django
+-> django-admin startproject to_do_app
+-> cd to_do_app
+-> (mytodo) C:\Users\HP\Desktop\WSC\proj_2\to_do_app>python manage.py startapp lists
+
+- register app in settings. 
+- modify urls.py of to_do_app folder.
+
+- create model as per requirements in models.py
+- write code in views.py
+- create file forms.py
+- create urls.py and write path.
+
+- create a folder template and file lists.html
+- create folder mystaticfiles and mystyles.css file in it.
+- modify settings.py add this:-
+    STATIC_ROOT = BASE_DIR / 'productionfiles'
+
+    STATICFILES_DIRS = [
+        BASE_DIR / 'mystaticfiles'
+    ]
+
+- run this command: python manage.py collectstatic
+- python manage.py runserver
+
+
+
+
+
+
+
+
+
+
+
